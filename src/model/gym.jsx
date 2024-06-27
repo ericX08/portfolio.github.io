@@ -6,6 +6,7 @@ import gsap from "gsap";
 import gymScene from "./Gym.glb";
 import Locker from "../assets/locker";
 import SkillDumbbell from "../assets/Skills";
+import javascriptIcon from "/javascript.svg";
 
 const Hitbox = ({ position, size, onClick }) => {
   return (
@@ -393,7 +394,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             canInteract={true}
             level="Large"
             confidenceLevel = {75}
-            svgPath="/javascript.svg"
+            svgPath= {javascriptIcon}
           />
           <SkillDumbbell
             nodes={nodes}
@@ -404,7 +405,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             canInteract={true}
             level="Medium"
             confidenceLevel = {50}
-            svgPath="/blender-original.svg"
+            svgPath={javascriptIcon}
           />
           <mesh
             name="small_skill_db"
