@@ -393,7 +393,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             canInteract={true}
             level="Large"
             confidenceLevel = {75}
-            svgPath="/icons/javascript.svg"
+            svgPath="/javascript.svg"
           />
           <SkillDumbbell
             nodes={nodes}
@@ -404,7 +404,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             canInteract={true}
             level="Medium"
             confidenceLevel = {50}
-            svgPath="/icons/blender-original.svg"
+            svgPath="/blender-original.svg"
           />
           <mesh
             name="small_skill_db"
