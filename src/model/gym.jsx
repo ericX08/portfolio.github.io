@@ -6,7 +6,8 @@ import gsap from "gsap";
 import gymScene from "./Gym.glb";
 import Locker from "../assets/locker";
 import SkillDumbbell from "../assets/Skills";
-import javascriptIcon from "/javascript.svg";
+import { javascript, blender, csharp, css, html, java, php, python, wordpress, xamarin, about, work, edu, resume } from "../../public";
+import Logo from "../assets/logo";
 
 const Hitbox = ({ position, size, onClick }) => {
   return (
@@ -17,7 +18,7 @@ const Hitbox = ({ position, size, onClick }) => {
   );
 };
 
-const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) => {
+const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => {
   const gymRef = useRef();
   const { nodes, materials } = useGLTF(gymScene);
   const leftDoorRef = useRef();
@@ -130,18 +131,18 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             scale={0.5}
           >
             <mesh
-              name="Cube003"
-              geometry={nodes.Cube003.geometry}
-              material={materials.menu}
-            />
-            <mesh
               name="Cube003_1"
               geometry={nodes.Cube003_1.geometry}
-              material={materials.rubber}
+              material={materials.menu}
             />
             <mesh
               name="Cube003_2"
               geometry={nodes.Cube003_2.geometry}
+              material={materials.rubber}
+            />
+            <mesh
+              name="Cube003_3"  
+              geometry={nodes.Cube003_3.geometry}
               material={materials.Material}
             />
             {showHitboxes && (
@@ -201,15 +202,15 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
           <group ref={barbellRef} name="barbell_game" position={[-8.7, 1.664, -12.5]} rotation={[Math.PI / 2, 0, 0]}>
             <mesh
               name="gym_model_079001"
-              castShadow
-              receiveShadow
+            
+
               geometry={nodes.gym_model_079001.geometry}
               material={materials.metal}
             />
             <mesh
               name="gym_model_079001_1"
-              castShadow
-              receiveShadow
+            
+
               geometry={nodes.gym_model_079001_1.geometry}
               material={materials.weights}
             />
@@ -311,6 +312,15 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
               geometry={nodes.gym_model_122005_3.geometry}
               material={materials.screen}
             />
+            <Logo 
+              svgPath={about}
+              position={[0, -.46, -1.146]}
+              scale={.0011}
+              tilt={-.38}
+              rotation={{x: Math.PI / 2, y: 0, z: Math.PI}}
+              fillColor="#F3FBFB"
+              strokeColor="black"
+            />
             {currentView === "about" && (
               <Hitbox
                 position={[0, -0.5, -1.1]}
@@ -343,6 +353,15 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
               name="gym_model_122006_3"
               geometry={nodes.gym_model_122006_3.geometry}
               material={materials.screen}
+            />
+            <Logo 
+              svgPath={work}
+              position={[-.011, -.5, -1.153]}
+              scale={.0067}
+              tilt={-.38}
+              rotation={{x: Math.PI / 2, y: 0, z: 0}}
+              fillColor="#F3FBFB"
+              strokeColor="blue"
             />
             {currentView === "about" && (
               <Hitbox
@@ -377,6 +396,15 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
               geometry={nodes.gym_model_122008_3.geometry}
               material={materials.screen}
             />
+            <Logo 
+              svgPath={edu}
+              position={[0, -.5, -1.145]}
+              scale={.0061}
+              tilt={-0.38}
+              rotation={{x: Math.PI / 2, y: 0, z: 0}}
+              fillColor="#F3FBFB"
+              strokeColor="blue"
+            />
             {currentView === "about" && (
               <Hitbox
                 position={[0, -0.5, -1.1]}
@@ -390,79 +418,128 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             materials={materials}
             position={[-13.6, 1.17, 1.1]}
             rotation={[0, 0, 1.204]}
-            scale={0.003}
+            scale={0.002}
             canInteract={true}
             level="Large"
-            confidenceLevel = {75}
-            svgPath= {javascriptIcon}
+            confidenceLevel = {90}
+            svgPath= {java}
+            svgPos={[0.08, -.25, 0.03]}
+          />
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 1.17, .8]}
+            rotation={[0, 0, 1.204]}
+            scale={0.002}
+            canInteract={true}
+            level="Large"
+            confidenceLevel = {85}
+            svgPath= {python}
+            svgPos={[0.05, -.25, 0.018]}
+          />
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 1.17, .5]}
+            rotation={[0, 0, 1.204]}
+            scale={0.002}
+            canInteract={true}
+            level="Large"
+            confidenceLevel = {80}
+            svgPath= {csharp}
+            svgPos={[.05, -.25, 0.02]}
           />
           <SkillDumbbell
             nodes={nodes}
             materials={materials}
             position={[-13.6, 0.8, 1.1]}
             rotation={[0, 0, 1.204]}
-            scale={0.004}
+            scale={0.0033}
+            canInteract={true}
+            level="Medium"
+            confidenceLevel = {60}
+            svgPath={javascript}
+            svgPos={[0.05, -.25, 0.008]}
+          />
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 0.8, .8]}
+            rotation={[0, 0, 1.204]}
+            scale={0.0033}
             canInteract={true}
             level="Medium"
             confidenceLevel = {50}
-            svgPath={javascriptIcon}
+            svgPath={html}
+            svgPos={[0.05, -.25, 0.015]}
           />
-          <mesh
-            name="small_skill_db"
-            geometry={nodes.small_skill_db.geometry}
-            material={materials["yellow rubber"]}
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 0.8, .5]}
+            rotation={[0, 0, 1.204]}
+            scale={0.0033}
+            canInteract={true}
+            level="Medium"
+            confidenceLevel = {50}
+            svgPath={css}
+            svgPos={[0.05, -.25, 0.02]}
+          />
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
             position={[-13.6, 0.48, 1.1]}
             rotation={[0, 0, 1.204]}
+            scale={0.0015}
+            canInteract={true}
+            level="Small"
+            confidenceLevel = {20}
+            svgPath={blender}
+            svgPos={[0.1, -.25, 0.02]}
           />
-          <mesh
-            name="large_skill_dumbbell001"
-            geometry={nodes.large_skill_dumbbell001.geometry}
-            material={materials.rubber}
-            position={[-13.6, 1.17, 0.8]}
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 0.48, .8]}
             rotation={[0, 0, 1.204]}
+            scale={0.0015}
+            canInteract={true}
+            level="Small"
+            confidenceLevel = {30}
+            svgPath={wordpress}
+            svgPos={[0.08, -.25, 0.02]}
           />
-          <mesh
-            name="large_skill_dumbbell002"
-            geometry={nodes.large_skill_dumbbell002.geometry}
-            material={materials.rubber}
-            position={[-13.6, 1.17, 0.5]}
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 0.48, .5]}
             rotation={[0, 0, 1.204]}
+            scale={0.0019}
+            canInteract={true}
+            level="Small"
+            confidenceLevel = {30}
+            svgPath={php}
+            svgPos={[0.14, -.25, 0]}
           />
-          <mesh
-            name="medium_skill_dumbbell001"
-            geometry={nodes.medium_skill_dumbbell001.geometry}
-            material={materials["red rubber"]}
-            position={[-13.6, 0.8, 0.8]}
+          <SkillDumbbell
+            nodes={nodes}
+            materials={materials}
+            position={[-13.6, 0.48, .2]}
             rotation={[0, 0, 1.204]}
-          />
-          <mesh
-            name="medium_skill_dumbbell002"
-            geometry={nodes.medium_skill_dumbbell002.geometry}
-            material={materials["red rubber"]}
-            position={[-13.6, 0.8, 0.5]}
-            rotation={[0, 0, 1.204]}
-          />
-          <mesh
-            name="small_skill_db001"
-            geometry={nodes.small_skill_db001.geometry}
-            material={materials["yellow rubber"]}
-            position={[-13.6, 0.48, 0.8]}
-            rotation={[0, 0, 1.204]}
-          />
-          <mesh
-            name="small_skill_db002"
-            geometry={nodes.small_skill_db002.geometry}
-            material={materials["yellow rubber"]}
-            position={[-13.6, 0.48, 0.5]}
-            rotation={[0, 0, 1.204]}
+            scale={0.0015}
+            canInteract={true}
+            level="Small"
+            confidenceLevel = {15}
+            svgPath={xamarin}
+            svgPos={[0.085, -.25, 0.02]}
           />
           {/* end of custom components and models */}
           <mesh
             name="Plane"
             geometry={nodes.Plane.geometry}
             material={nodes.Plane.material}
-            position={[0, 0.01, 0]}
-            scale={[50, 1, 50]}
+            position={[0, -0.01, 0]}
+            scale={[40, 1, 40]}
           />
           <mesh
             name="Text"
@@ -1128,14 +1205,6 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             rotation={[Math.PI / 2, 0, 0]}
             scale={[5, 5, 1]}
           />
-          {/* <mesh
-          name="gym_ceil"
-          geometry={nodes.gym_floor.geometry}
-          material={materials['plastic(grey)']}
-          position={[0,3.5,0]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={[5, 5, 1]}
-        /> */}
           <mesh
             name="big_shelves_1"
             geometry={nodes.big_shelves_1.geometry}
@@ -2016,6 +2085,760 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation  }) =>
             material={materials["green rubber"]}
             position={[-0.305, 1.749, -6.9]}
             rotation={[Math.PI / 2, 0, 0]}
+          />
+          <group name="ceiling_Light" position={[0, 3.42, -5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx001"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode002">
+                <group
+                  name="CINEMA_4D_Editor001"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4001" />
+                </group>
+                <group name="Cube001">
+                  <mesh
+                    name="Cube__0001"
+                  
+      
+                    geometry={nodes.Cube__0001.geometry}
+                    material={materials['Scene_-_Root.001']}
+                  />
+                </group>
+                <group name="Symmetry001">
+                  <mesh
+                    name="Symmetry__0001"
+                  
+      
+                    geometry={nodes.Symmetry__0001.geometry}
+                    material={materials['Scene_-_Root.001']}
+                  />
+                </group>
+                <group name="Symmetry_1001">
+                  <mesh
+                    name="Symmetry_1__0001"
+                  
+      
+                    geometry={nodes.Symmetry_1__0001.geometry}
+                    material={materials['Scene_-_Root.001']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group
+            name="CINEMA_4D_Editor"
+            position={[10.598, 26.398, -30.444]}
+            rotation={[Math.PI, -1.503, 2.293]}>
+            <group name="Object_4" />
+          </group>
+          <group name="ceiling_Light_1001" position={[-7, 3.42, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx002"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode003">
+                <group
+                  name="CINEMA_4D_Editor002"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4002" />
+                </group>
+                <group name="Cube002">
+                  <mesh
+                    name="Cube__0002"
+                  
+      
+                    geometry={nodes.Cube__0002.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry002">
+                  <mesh
+                    name="Symmetry__0002"
+                  
+      
+                    geometry={nodes.Symmetry__0002.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1002">
+                  <mesh
+                    name="Symmetry_1__0002"
+                  
+      
+                    geometry={nodes.Symmetry_1__0002.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1002" position={[-7, 3.42, -5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx003"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode004">
+                <group
+                  name="CINEMA_4D_Editor003"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4003" />
+                </group>
+                <group name="Cube003">
+                  <mesh
+                    name="Cube__0003"
+                  
+      
+                    geometry={nodes.Cube__0003.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry003">
+                  <mesh
+                    name="Symmetry__0003"
+                  
+      
+                    geometry={nodes.Symmetry__0003.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1003">
+                  <mesh
+                    name="Symmetry_1__0003"
+                  
+      
+                    geometry={nodes.Symmetry_1__0003.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1003" position={[-7, 3.42, -10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx004"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode005">
+                <group
+                  name="CINEMA_4D_Editor004"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4004" />
+                </group>
+                <group name="Cube004">
+                  <mesh
+                    name="Cube__0004"
+                  
+      
+                    geometry={nodes.Cube__0004.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry004">
+                  <mesh
+                    name="Symmetry__0004"
+                  
+      
+                    geometry={nodes.Symmetry__0004.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1004">
+                  <mesh
+                    name="Symmetry_1__0004"
+                  
+      
+                    geometry={nodes.Symmetry_1__0004.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1004" position={[7, 3.42, 10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx005"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode006">
+                <group
+                  name="CINEMA_4D_Editor005"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4005" />
+                </group>
+                <group name="Cube005">
+                  <mesh
+                    name="Cube__0005"
+                  
+      
+                    geometry={nodes.Cube__0005.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry005">
+                  <mesh
+                    name="Symmetry__0005"
+                  
+      
+                    geometry={nodes.Symmetry__0005.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1005">
+                  <mesh
+                    name="Symmetry_1__0005"
+                  
+      
+                    geometry={nodes.Symmetry_1__0005.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1005" position={[7, 3.42, 5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx006"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode007">
+                <group
+                  name="CINEMA_4D_Editor006"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4006" />
+                </group>
+                <group name="Cube006">
+                  <mesh
+                    name="Cube__0006"
+                  
+      
+                    geometry={nodes.Cube__0006.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry006">
+                  <mesh
+                    name="Symmetry__0006"
+                  
+      
+                    geometry={nodes.Symmetry__0006.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1006">
+                  <mesh
+                    name="Symmetry_1__0006"
+                  
+      
+                    geometry={nodes.Symmetry_1__0006.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1006" position={[7, 3.42, -10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx007"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode008">
+                <group
+                  name="CINEMA_4D_Editor007"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4007" />
+                </group>
+                <group name="Cube007">
+                  <mesh
+                    name="Cube__0007"
+                  
+      
+                    geometry={nodes.Cube__0007.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry007">
+                  <mesh
+                    name="Symmetry__0007"
+                  
+      
+                    geometry={nodes.Symmetry__0007.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1007">
+                  <mesh
+                    name="Symmetry_1__0007"
+                  
+      
+                    geometry={nodes.Symmetry_1__0007.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1007" position={[7, 3.42, -5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx008"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode009">
+                <group
+                  name="CINEMA_4D_Editor008"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4008" />
+                </group>
+                <group name="Cube008">
+                  <mesh
+                    name="Cube__0008"
+                  
+      
+                    geometry={nodes.Cube__0008.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry008">
+                  <mesh
+                    name="Symmetry__0008"
+                  
+      
+                    geometry={nodes.Symmetry__0008.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1008">
+                  <mesh
+                    name="Symmetry_1__0008"
+                  
+      
+                    geometry={nodes.Symmetry_1__0008.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1008" position={[7, 3.42, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx009"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode010">
+                <group
+                  name="CINEMA_4D_Editor009"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4009" />
+                </group>
+                <group name="Cube009">
+                  <mesh
+                    name="Cube__0009"
+                  
+      
+                    geometry={nodes.Cube__0009.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry009">
+                  <mesh
+                    name="Symmetry__0009"
+                  
+      
+                    geometry={nodes.Symmetry__0009.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1009">
+                  <mesh
+                    name="Symmetry_1__0009"
+                  
+      
+                    geometry={nodes.Symmetry_1__0009.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1009" position={[0, 3.42, -10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx010"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode011">
+                <group
+                  name="CINEMA_4D_Editor010"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4010" />
+                </group>
+                <group name="Cube010">
+                  <mesh
+                    name="Cube__0010"
+                  
+      
+                    geometry={nodes.Cube__0010.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry010">
+                  <mesh
+                    name="Symmetry__0010"
+                  
+      
+                    geometry={nodes.Symmetry__0010.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1010">
+                  <mesh
+                    name="Symmetry_1__0010"
+                  
+      
+                    geometry={nodes.Symmetry_1__0010.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1010" position={[0, 3.42, 10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx011"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode012">
+                <group
+                  name="CINEMA_4D_Editor011"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4011" />
+                </group>
+                <group name="Cube011">
+                  <mesh
+                    name="Cube__0011"
+                    geometry={nodes.Cube__0011.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry011">
+                  <mesh
+                    name="Symmetry__0011"
+                    geometry={nodes.Symmetry__0011.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1011">
+                  <mesh
+                    name="Symmetry_1__0011"
+                    geometry={nodes.Symmetry_1__0011.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1011" position={[0, 3.42, 5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx012"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode013">
+                <group
+                  name="CINEMA_4D_Editor012"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4012" />
+                </group>
+                <group name="Cube012">
+                  <mesh
+                    name="Cube__0012"
+                    geometry={nodes.Cube__0012.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry012">
+                  <mesh
+                    name="Symmetry__0012"
+                    geometry={nodes.Symmetry__0012.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1012">
+                  <mesh
+                    name="Symmetry_1__0012"
+                    geometry={nodes.Symmetry_1__0012.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1012" position={[0, 3.42, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx013"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode014">
+                <group
+                  name="CINEMA_4D_Editor013"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4013" />
+                </group>
+                <group name="Cube013">
+                  <mesh
+                    name="Cube__0013"
+                    geometry={nodes.Cube__0013.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry013">
+                  <mesh
+                    name="Symmetry__0013"
+                    geometry={nodes.Symmetry__0013.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+                <group name="Symmetry_1013">
+                  <mesh
+                    name="Symmetry_1__0013"
+                    geometry={nodes.Symmetry_1__0013.geometry}
+                    material={materials['Scene_-_Root.002']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1014" position={[-7, 3.42, 10]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx014"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode015">
+                <group
+                  name="CINEMA_4D_Editor014"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4014" />
+                </group>
+                <group name="Cube014">
+                  <mesh
+                    name="Cube__0014"
+                    geometry={nodes.Cube__0014.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+                <group name="Symmetry014">
+                  <mesh
+                    name="Symmetry__0014"
+                    geometry={nodes.Symmetry__0014.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+                <group name="Symmetry_1014">
+                  <mesh
+                    name="Symmetry_1__0014"
+                    geometry={nodes.Symmetry_1__0014.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <group name="ceiling_Light_1013" position={[-7, 3.42, 5]} rotation={[-Math.PI / 2, 0, 0]}>
+            <group
+              name="b0ada5875fd342f09c431cbe4002bffdfbx015"
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={0.01}>
+              <group name="RootNode016">
+                <group
+                  name="CINEMA_4D_Editor015"
+                  position={[10.598, 26.398, -30.444]}
+                  rotation={[Math.PI, -1.503, 2.293]}>
+                  <group name="Object_4015" />
+                </group>
+                <group name="Cube015">
+                  <mesh
+                    name="Cube__0015"
+                    geometry={nodes.Cube__0015.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+                <group name="Symmetry015">
+                  <mesh
+                    name="Symmetry__0015"
+                    geometry={nodes.Symmetry__0015.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+                <group name="Symmetry_1015">
+                  <mesh
+                    name="Symmetry_1__0015"
+                    geometry={nodes.Symmetry_1__0015.geometry}
+                    material={materials['Scene_-_Root.003']}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <mesh
+            name="gym_ceiling"
+            geometry={nodes.gym_ceiling.geometry}
+            material={materials['rubber-grey']}
+            position={[0, 3.462, 0]}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={[5, 5, 0.48]}
+          />
+          <group
+            name="phone"
+            position={[2.92, 1.4, 9.3]}
+            rotation={[-Math.PI / 2, 0, 0.698]}
+            scale={[0.15, 0.1, 0.15]}>
+            <group name="55dfebbf940a459ba2ed4034ab2d80dcfbx" rotation={[Math.PI / 2, 0, 0]}>
+              <group name="RootNode">
+                <group name="HomeButton" position={[0, -1.322, -0.02]}>
+                  <mesh
+                    name="HomeButton_PhoneButtons_m_0"
+                    geometry={nodes.HomeButton_PhoneButtons_m_0.geometry}
+                    material={materials.PhoneButtons_m}
+                  />
+                </group>
+                <group name="PhoneBody">
+                  <mesh
+                    name="PhoneBody_PhoneBody_m_0"
+                    geometry={nodes.PhoneBody_PhoneBody_m_0.geometry}
+                    material={materials.PhoneBody_m}
+                  />
+                  <mesh
+                    name="PhoneBody_PhoneScreen_M_0"
+                    geometry={nodes.PhoneBody_PhoneScreen_M_0.geometry}
+                    material={materials.PhoneScreen_M}
+                  />
+                </group>
+                <group name="PowerButton" position={[-0.723, 1.487, 0.008]}>
+                  <mesh
+                    name="PowerButton_PhoneButtons_m_0"
+                    geometry={nodes.PowerButton_PhoneButtons_m_0.geometry}
+                    material={materials.PhoneButtons_m}
+                  />
+                </group>
+                <group
+                  name="VolumeButton"
+                  position={[0.749, 1.145, 0.008]}
+                  rotation={[0, 0, -Math.PI / 2]}>
+                  <mesh
+                    name="VolumeButton_PhoneButtons_m_0"
+                    geometry={nodes.VolumeButton_PhoneButtons_m_0.geometry}
+                    material={materials.PhoneButtons_m}
+                  />
+                </group>
+              </group>
+            </group>
+          </group>
+          <mesh
+            name="locker_project_model_plate"
+            geometry={nodes.locker_project_model_plate.geometry}
+            material={materials.weights}
+            position={[4.89, 1.32, 8.99]}
+            rotation={[0.82, 0, 0]}
+            scale={0.8}
+          />
+          <group
+            name="SecurityCameraBase"
+            position={[6.16, 1.36, 9.13]}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.03}>
+            <mesh
+              name="Mesh"
+              geometry={nodes.Mesh.geometry}
+              material={materials.Team3_Sanchez_SecurityCameraBase}
+            />
+            <mesh
+              name="Mesh_1"
+              geometry={nodes.Mesh_1.geometry}
+              material={materials.Team3_Sanchez_SecurityCameraBolt}
+            />
+          </group>
+          <group
+            name="SecurityCamera"
+            position={[6.14, 1.35, 9.13]}
+            rotation={[Math.PI / 2, 0, 0.925]}
+            scale={0.03}>
+            <mesh
+              name="Mesh001"
+              geometry={nodes.Mesh001.geometry}
+              material={materials.Team3_Sanchez_SecurityCameraBase}
+            />
+            <mesh
+              name="Mesh001_1"         
+              geometry={nodes.Mesh001_1.geometry}
+              material={materials.Team3_Sanchez_SecuruityCameraLens}
+            />
+            <mesh
+              name="Mesh001_2"
+              geometry={nodes.Mesh001_2.geometry}
+              material={materials.Team3_Sanchez_SecurityCameraBolt}
+            />
+            <mesh
+              name="Mesh001_3"
+              geometry={nodes.Mesh001_3.geometry}
+              material={materials.Team3_Sanchez_SecuirtyCameraOnButton}
+            />
+            <mesh
+              name="Mesh001_4"        
+              geometry={nodes.Mesh001_4.geometry}
+              material={materials.lambert1}
+            />
+          </group>
+          <group
+            name="amazon_box"
+            position={[7.41, 1.17, 9.18]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            scale={0.01}>
+            <group
+              name="a366978fdd564d359a25ec4aab2a25e0objcleanergles"
+              position={[-22.332, -18.116, 0]}>
+              <group name="Object_2">
+                <mesh
+                  name="Object_3"
+                  geometry={nodes.Object_3.geometry}
+                  material={materials.crate_texture}
+                />
+                <mesh
+                  name="Object_3001"
+                  geometry={nodes.Object_3001.geometry}
+                  material={materials.crate_texture}
+                  position={[-15.299, 9.959, -0.301]}
+                  rotation={[0, 0, 1.902]}
+                />
+                <mesh
+                  name="Object_3002"
+                  geometry={nodes.Object_3002.geometry}
+                  material={materials.crate_texture}
+                  position={[-2.456, 22.833, 36.314]}
+                  rotation={[0, 0, -0.663]}
+                />
+              </group>
+            </group>
+          </group>
+          <mesh
+            name="large_skill_dumbbell003"
+            geometry={nodes.large_skill_dumbbell003.geometry}
+            material={materials.rubber}
+            position={[4.168, 1.248, 9.302]}
+            rotation={[0, 0, 1.204]}
+            scale={0.5}
           />
         </group>
       </a.group>

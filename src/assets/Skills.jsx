@@ -3,7 +3,7 @@ import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 import Logo from './logo';
 
-const SkillDumbbell = ({ nodes, materials, position, rotation, scale, canInteract, level, confidenceLevel, svgPath }) => {
+const SkillDumbbell = ({ nodes, materials, position, rotation, scale, canInteract, level, confidenceLevel, svgPath, svgPos }) => {
   const [hovered, setHovered] = useState(false);
   const groupRef = useRef();
 
@@ -75,7 +75,7 @@ const SkillDumbbell = ({ nodes, materials, position, rotation, scale, canInterac
         <mesh
           name="large_skill_dumbbell001"
           geometry={nodes.large_skill_dumbbell001.geometry}
-          material={materials["green rubber"]}
+          material={materials["dark green"]}
         />
       );
       break;
@@ -126,7 +126,15 @@ const SkillDumbbell = ({ nodes, materials, position, rotation, scale, canInterac
         <primitive object={shaderMaterial} attach="material" />
         <animated.primitive object={shaderMaterial} attach="material" uniforms-progress-value={progress} />
       </animated.mesh>
-      <Logo svgPath={svgPath} scale={scale} position={[0, -.25, 0]} />
+      <Logo 
+        svgPath={svgPath} 
+        scale={scale} 
+        position={svgPos} 
+        rotation={{ x: -Math.PI / 2, y: 0, z: Math.PI / 2 }}
+        tilt={-0.3}
+        fillColor="#F3FBFB"
+        strokeColor="#00A5E6"
+      />
     </group>
   );
 };

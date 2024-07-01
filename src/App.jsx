@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+//fix skills bug where i can go back before closing
+import React, { useState, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import { Environment } from '@react-three/drei';
 import Loader from './assets/Loader';
 import Gym from './model/gym';
@@ -51,12 +51,14 @@ const App = () => {
   const [direction, setDirection] = useState(1);
   const [canClick, setCanClick] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const [showStartPopup, setShowStartPopup] = useState(false);
+  const [highScore, setHighScore] = useState(0);
 
   const cameraConfigs = {
     outside: { position: [0, 3, -23.5], rotation: [0, 180, 0], fov: 54, enableMouseFollow: false },
     reception: { position: [0, 2, -13.5], rotation: [0, 200, 0], fov: 60, enableMouseFollow: true },
     about: { position: [9.75, 1.5, -9.5], rotation: [-5, 0, 0], fov: 54, enableMouseFollow: true },
-    projects: { position: [8.5, 2, 14], rotation: [-2, 0, 0], fov: 70, enableMouseFollow: true },
+    projects: { position: [6, 2, 14], rotation: [-2, 0, 0], fov: 70, enableMouseFollow: true },
     skills: { position: [-10, 1.6, 1], rotation: [0, 90, 0], fov: 70, enableMouseFollow: true },
     game: { position: [-8.7, 2, -5], rotation: [0, 0, 0], fov: 60, enableMouseFollow: false },
   };
@@ -81,7 +83,14 @@ const App = () => {
 
   const handleCameraChange = (destination) => {
     setCurrentView(destination);
-    if (destination === 'game') setPlayGame(true);
+    if (destination === 'game') {
+      setTimeout(() => {
+        setShowStartPopup(true);
+      }, 2000);
+    }
+    if (destination !== 'game'){
+      setShowStartPopup(false);
+    }
   };
 
   const handlePopupTrigger = (popupType) => {
@@ -103,11 +112,12 @@ const App = () => {
         setIsPaused(false);
       }, 1500);
     } else {
-      handleGameOver(false);
+      handleGameOver();
     }
   };
 
   const handleStartGame = () => {
+    setShowStartPopup(false);
     setShowGameResults(false);
     setPlayGame(true);
     setScore(0);
@@ -123,8 +133,10 @@ const App = () => {
     setPlayGame(false);
     setPlayAnimation(false);
     setIsPaused(false);
+    if (score > highScore) {
+      setHighScore(score);
+    }
   };
-
 
   return (
     <section className='w-full h-screen relative'>
@@ -132,37 +144,19 @@ const App = () => {
         className='w-full h-screen bg-transparent'
         camera={{ near: 0.1, far: 1000, position: [0, 0, 0], fov: 60 }}
       >
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader />}>   
           <Scene 
-             currentView={currentView} 
-             onCameraChange={handleCameraChange}
-             cameraConfigs={cameraConfigs}
-             onPopupTrigger={handlePopupTrigger}
-             playAnimation={playAnimation}
-             onGameOver={handleGameOver}
-             sliderPosition={sliderPosition}
-             playGame={playGame}
+            currentView={currentView} 
+            onCameraChange={handleCameraChange}
+            cameraConfigs={cameraConfigs}
+            onPopupTrigger={handlePopupTrigger}
+            playAnimation={playAnimation}
+            onGameOver={handleGameOver}
+            sliderPosition={sliderPosition}
+            playGame={playGame}
           />
         </Suspense>
       </Canvas>
-      {currentView === 'game' && !playGame && (
-        <button
-          style={{
-            position: 'absolute',
-            bottom: '70px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '10px 20px',
-            backgroundColor: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
-          onClick={handleStartGame}
-        >
-          Start Game
-        </button>
-      )}
       {currentView === 'game' && playGame && !isPaused && (
         <button
           style={{
@@ -182,7 +176,7 @@ const App = () => {
           Click!
         </button>
       )}
-      {currentView !== 'reception' && currentView !== 'outside' && (
+      {currentView !== 'reception' && currentView !== 'outside' && !showGameResults && !playGame&& (
         <button
           style={{
             position: 'absolute',
@@ -231,11 +225,72 @@ const App = () => {
           <Projects activePopup={activePopup} onClose={() => setActivePopup(null)} />
         </div>
       )}
+      {showStartPopup && (
+        <div style={{ 
+          position: 'absolute', 
+          top: '50%', 
+          left: '50%', 
+          transform: 'translate(-50%, -50%)', 
+          backgroundColor: 'white', 
+          padding: 20, 
+          borderRadius: '10px', 
+          textAlign: 'center',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          zIndex: 1000
+        }}>
+          <h2 style={{ marginBottom: '15px', color: '#333' }}>Ready to Play?</h2>
+          <p style={{ marginBottom: '20px', color: '#666' }}>Click the button to start the game!</p>
+          <button 
+            onClick={handleStartGame}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              transition: 'background-color 0.3s'
+            }}
+            onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
+            onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
+          >
+            Start Game
+          </button>
+        </div>
+      )}
       {showGameResults && (
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: 20 }}>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: 20, borderRadius: '10px', textAlign: 'center' }}>
+          <h2>Game Over</h2>
           <p>Score: {score}</p>
-          <button onClick={handleStartGame}>Play Again</button>
-          <button onClick={() => {handleCameraChange('reception'), setShowGameResults(false)}}>Back to Reception</button>
+          <p>High Score: {highScore}</p>
+          <button 
+            onClick={handleStartGame}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              marginRight: '10px'
+            }}
+          >
+            Play Again
+          </button>
+          <button 
+            onClick={() => {handleCameraChange('reception'); setShowGameResults(false);}}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#f44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+          >
+            Back to Reception
+          </button>
         </div>
       )}
     </section>

@@ -3,14 +3,16 @@ import { useLoader, extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
-// Extend THREE with ExtrudeGeometry
 extend({ ExtrudeGeometry: THREE.ExtrudeGeometry });
 
-const fillMaterial = new THREE.MeshBasicMaterial({ color: "#F3FBFB" });
-const strokeMaterial = new THREE.LineBasicMaterial({ color: "#00A5E6" });
-
-const Logo = ({ svgPath, scale, tilt = -.3, ...props }) => {
+const Logo = ({ svgPath, scale, rotation, tilt, fillColor, strokeColor, ...props }) => {
   const svgData = useLoader(SVGLoader, svgPath);
+  
+  const materials = useMemo(() => ({
+    fill: new THREE.MeshBasicMaterial({ color: fillColor }),
+    stroke: new THREE.LineBasicMaterial({ color: strokeColor })
+  }), [fillColor, strokeColor]);
+
   const svgGroup = useMemo(() => {
     const group = new THREE.Group();
     const updateMap = [];
@@ -23,10 +25,9 @@ const Logo = ({ svgPath, scale, tilt = -.3, ...props }) => {
           bevelEnabled: false,
         });
         const linesGeometry = new THREE.EdgesGeometry(meshGeometry);
-        const mesh = new THREE.Mesh(meshGeometry, fillMaterial);
-        const lines = new THREE.LineSegments(linesGeometry, strokeMaterial);
+        const mesh = new THREE.Mesh(meshGeometry, materials.fill);
+        const lines = new THREE.LineSegments(linesGeometry, materials.stroke);
 
-        // Apply tilt to each shape
         mesh.rotation.x = tilt;
         lines.rotation.x = tilt;
 
@@ -44,13 +45,27 @@ const Logo = ({ svgPath, scale, tilt = -.3, ...props }) => {
       item.position.x = xOffset;
       item.position.y = yOffset;
     });
-    group.rotateX(-Math.PI / 2);
-    group.rotateZ(Math.PI / 2);
+    
+    group.rotation.set(rotation.x, rotation.y, rotation.z);
 
     return group;
-  }, [svgData, tilt]);
+  }, [svgData, tilt, rotation, materials]);
 
-  return <primitive object={svgGroup} scale={scale} {...props} />;
+  const getCurrentSettings = () => ({
+    rotation,
+    tilt,
+    fillColor,
+    strokeColor
+  });
+
+  return (
+    <primitive 
+      object={svgGroup} 
+      scale={scale} 
+      {...props} 
+      userData={{ getCurrentSettings }}
+    />
+  );
 };
 
 export default Logo;
