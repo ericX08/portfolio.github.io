@@ -10,6 +10,7 @@ import About from './pages/About';
 import QTEBar from './assets/MiniGame';
 import Projects from './pages/Projects';
 
+
 const Scene = ({ currentView, onCameraChange, cameraConfigs, onPopupTrigger, playAnimation, sliderPosition, playGame }) => {
   return (
     <>
@@ -17,7 +18,7 @@ const Scene = ({ currentView, onCameraChange, cameraConfigs, onPopupTrigger, pla
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />
-      <Environment preset="sunset" />
+      {/* <Environment preset="sunset" /> */}
       <Gym 
         onCameraChange={onCameraChange} 
         currentView={currentView} 

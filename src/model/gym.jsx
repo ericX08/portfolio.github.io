@@ -101,6 +101,7 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
   }, [playAnimation]);
 
   useEffect(() => {
+    console.log(currentView);
     const timer = setTimeout(() => {
       onCameraChange("reception");
     }, 2000);
@@ -170,369 +171,381 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
               </>
             )}
           </group>
-          <group ref={characterRef} name="character_3" position={[-8.7, 0.9, -10.726]} >
-            <group name="character3">
-              <skinnedMesh
-                name="character3_1" //torso
-                geometry={nodes.character3_1.geometry}
-                material={materials["red rubber"]}
-                skeleton={nodes.character3_1.skeleton}
+          {currentView === 'game' && (
+            <>
+              <group ref={characterRef} name="character_3" position={[-8.7, 0.9, -10.726]} >
+                <group name="character3">
+                  <skinnedMesh
+                    name="character3_1" //torso
+                    geometry={nodes.character3_1.geometry}
+                    material={materials["red rubber"]}
+                    skeleton={nodes.character3_1.skeleton}
+                  />
+                  <skinnedMesh
+                    name="character3_2" //legs
+                    geometry={nodes.character3_2.geometry}
+                    material={materials.rubber}
+                    skeleton={nodes.character3_2.skeleton}
+                  />
+                  <skinnedMesh
+                    name="character3_3" //arms and legs
+                    geometry={nodes.character3_3.geometry}
+                    material={materials.skin}
+                    skeleton={nodes.character3_3.skeleton}
+                  />
+                  <skinnedMesh
+                    name="character3_4"
+                    geometry={nodes.character3_4.geometry}
+                    material={materials.sock}
+                    skeleton={nodes.character3_4.skeleton}
+                  />
+                </group>
+                <primitive object={nodes.Bone} />
+              </group>
+              <group ref={barbellRef} name="barbell_game" position={[-8.7, 1.664, -12.5]} rotation={[Math.PI / 2, 0, 0]}>
+                <mesh
+                  name="gym_model_079001"
+                  geometry={nodes.gym_model_079001.geometry}
+                  material={materials.metal}
+                />
+                <mesh
+                  name="gym_model_079001_1"
+                  geometry={nodes.gym_model_079001_1.geometry}
+                  material={materials.weights}
+                />
+              </group>
+            </>
+          )}
+          {currentView === "projects" && (
+            <>
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[3.37, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => onPopupTrigger("interactivePortfolio")}
+                canInteract={true}
               />
-              <skinnedMesh
-                name="character3_2" //legs
-                geometry={nodes.character3_2.geometry}
-                material={materials.rubber}
-                skeleton={nodes.character3_2.skeleton}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[4.62, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => onPopupTrigger("ecommerceIntegration")}
+                canInteract={true}
               />
-              <skinnedMesh
-                name="character3_3" //arms and legs
-                geometry={nodes.character3_3.geometry}
-                material={materials.skin}
-                skeleton={nodes.character3_3.skeleton}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[5.87, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => onPopupTrigger("netMauiApp")}
+                canInteract={true}
               />
-              <skinnedMesh
-                name="character3_4"
-                geometry={nodes.character3_4.geometry}
-                material={materials.sock}
-                skeleton={nodes.character3_4.skeleton}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[7.12, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => onPopupTrigger("securityPlayground")}
+                canInteract={true}
               />
-            </group>
-            <primitive object={nodes.Bone} />
-          </group>
-          <group ref={barbellRef} name="barbell_game" position={[-8.7, 1.664, -12.5]} rotation={[Math.PI / 2, 0, 0]}>
-            <mesh
-              name="gym_model_079001"
-            
-
-              geometry={nodes.gym_model_079001.geometry}
-              material={materials.metal}
-            />
-            <mesh
-              name="gym_model_079001_1"
-            
-
-              geometry={nodes.gym_model_079001_1.geometry}
-              material={materials.weights}
-            />
-          </group>
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[3.37, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => onPopupTrigger("interactivePortfolio")}
-            canInteract={true}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[4.62, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => onPopupTrigger("ecommerceIntegration")}
-            canInteract={true}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[5.87, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => onPopupTrigger("netMauiApp")}
-            canInteract={true}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[7.12, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => onPopupTrigger("securityPlayground")}
-            canInteract={true}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[8.37, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => onPopupTrigger("upcomingProject")}
-            canInteract={true}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[9.62, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => console.log("Locker 5 clicked")}
-            canInteract={false}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[10.87, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => console.log("Locker 6 clicked")}
-            canInteract={false}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[12.12, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => console.log("Locker 7 clicked")}
-            canInteract={false}
-          />
-          <Locker
-            nodes={nodes}
-            materials={materials}
-            position={[13.37, 0.1, 9.08]}
-            rotation={[Math.PI / 2, 0, 0]}
-            onClick={() => console.log("Locker 8 clicked")}
-            canInteract={false}
-          />
-          <group
-            name="treadmills005"
-            position={[9.7, 0.11, -12.5]}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <mesh
-              name="gym_model_122005"
-              geometry={nodes.gym_model_122005.geometry}
-              material={materials["plastic(grey)"]}
-            />
-            <mesh
-              name="gym_model_122005_1"
-              geometry={nodes.gym_model_122005_1.geometry}
-              material={materials["rubber-grey"]}
-            />
-            <mesh
-              name="gym_model_122005_2"
-              geometry={nodes.gym_model_122005_2.geometry}
-              material={materials.rubber}
-            />
-            <mesh
-              name="gym_model_122005_3"
-              geometry={nodes.gym_model_122005_3.geometry}
-              material={materials.screen}
-            />
-            <Logo 
-              svgPath={about}
-              position={[0, -.46, -1.146]}
-              scale={.0011}
-              tilt={-.38}
-              rotation={{x: Math.PI / 2, y: 0, z: Math.PI}}
-              fillColor="#F3FBFB"
-              strokeColor="black"
-            />
-            {currentView === "about" && (
-              <Hitbox
-                position={[0, -0.5, -1.1]}
-                size={[0.25, 0.15, 0.25]}
-                onClick={() => onPopupTrigger("aboutMe")}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[8.37, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => onPopupTrigger("upcomingProject")}
+                canInteract={true}
               />
-            )}
-          </group>
-          <group
-            name="treadmills002"
-            position={[8.1, 0.11, -12.5]}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <mesh
-              name="gym_model_122006"
-              geometry={nodes.gym_model_122006.geometry}
-              material={materials["plastic(grey)"]}
-            />
-            <mesh
-              name="gym_model_122006_1"
-              geometry={nodes.gym_model_122006_1.geometry}
-              material={materials["rubber-grey"]}
-            />
-            <mesh
-              name="gym_model_122006_2"
-              geometry={nodes.gym_model_122006_2.geometry}
-              material={materials.rubber}
-            />
-            <mesh
-              name="gym_model_122006_3"
-              geometry={nodes.gym_model_122006_3.geometry}
-              material={materials.screen}
-            />
-            <Logo 
-              svgPath={work}
-              position={[-.011, -.5, -1.153]}
-              scale={.0067}
-              tilt={-.38}
-              rotation={{x: Math.PI / 2, y: 0, z: 0}}
-              fillColor="#F3FBFB"
-              strokeColor="blue"
-            />
-            {currentView === "about" && (
-              <Hitbox
-                position={[0, -0.5, -1.1]}
-                size={[0.25, 0.15, 0.25]}
-                onClick={() => onPopupTrigger("experience")}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[9.62, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => console.log("Locker 5 clicked")}
+                canInteract={false}
               />
-            )}
-          </group>
-          <group
-            name="treadmills004"
-            position={[11.3, 0.11, -12.5]}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <mesh
-              name="gym_model_122008"
-              geometry={nodes.gym_model_122008.geometry}
-              material={materials["plastic(grey)"]}
-            />
-            <mesh
-              name="gym_model_122008_1"
-              geometry={nodes.gym_model_122008_1.geometry}
-              material={materials["rubber-grey"]}
-            />
-            <mesh
-              name="gym_model_122008_2"
-              geometry={nodes.gym_model_122008_2.geometry}
-              material={materials.rubber}
-            />
-            <mesh
-              name="gym_model_122008_3"
-              geometry={nodes.gym_model_122008_3.geometry}
-              material={materials.screen}
-            />
-            <Logo 
-              svgPath={edu}
-              position={[0, -.5, -1.145]}
-              scale={.0061}
-              tilt={-0.38}
-              rotation={{x: Math.PI / 2, y: 0, z: 0}}
-              fillColor="#F3FBFB"
-              strokeColor="blue"
-            />
-            {currentView === "about" && (
-              <Hitbox
-                position={[0, -0.5, -1.1]}
-                size={[0.25, 0.15, 0.25]}
-                onClick={() => onPopupTrigger("education")}
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[10.87, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => console.log("Locker 6 clicked")}
+                canInteract={false}
               />
-            )}
-          </group>
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 1.17, 1.1]}
-            rotation={[0, 0, 1.204]}
-            scale={0.002}
-            canInteract={true}
-            level="Large"
-            confidenceLevel = {90}
-            svgPath= {java}
-            svgPos={[0.08, -.25, 0.03]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 1.17, .8]}
-            rotation={[0, 0, 1.204]}
-            scale={0.002}
-            canInteract={true}
-            level="Large"
-            confidenceLevel = {85}
-            svgPath= {python}
-            svgPos={[0.05, -.25, 0.018]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 1.17, .5]}
-            rotation={[0, 0, 1.204]}
-            scale={0.002}
-            canInteract={true}
-            level="Large"
-            confidenceLevel = {80}
-            svgPath= {csharp}
-            svgPos={[.05, -.25, 0.02]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.8, 1.1]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0033}
-            canInteract={true}
-            level="Medium"
-            confidenceLevel = {60}
-            svgPath={javascript}
-            svgPos={[0.05, -.25, 0.008]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.8, .8]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0033}
-            canInteract={true}
-            level="Medium"
-            confidenceLevel = {50}
-            svgPath={html}
-            svgPos={[0.05, -.25, 0.015]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.8, .5]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0033}
-            canInteract={true}
-            level="Medium"
-            confidenceLevel = {50}
-            svgPath={css}
-            svgPos={[0.05, -.25, 0.02]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.48, 1.1]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0015}
-            canInteract={true}
-            level="Small"
-            confidenceLevel = {20}
-            svgPath={blender}
-            svgPos={[0.1, -.25, 0.02]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.48, .8]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0015}
-            canInteract={true}
-            level="Small"
-            confidenceLevel = {30}
-            svgPath={wordpress}
-            svgPos={[0.08, -.25, 0.02]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.48, .5]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0019}
-            canInteract={true}
-            level="Small"
-            confidenceLevel = {30}
-            svgPath={php}
-            svgPos={[0.14, -.25, 0]}
-          />
-          <SkillDumbbell
-            nodes={nodes}
-            materials={materials}
-            position={[-13.6, 0.48, .2]}
-            rotation={[0, 0, 1.204]}
-            scale={0.0015}
-            canInteract={true}
-            level="Small"
-            confidenceLevel = {15}
-            svgPath={xamarin}
-            svgPos={[0.085, -.25, 0.02]}
-          />
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[12.12, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => console.log("Locker 7 clicked")}
+                canInteract={false}
+              />
+              <Locker
+                nodes={nodes}
+                materials={materials}
+                position={[13.37, 0.1, 9.08]}
+                rotation={[Math.PI / 2, 0, 0]}
+                onClick={() => console.log("Locker 8 clicked")}
+                canInteract={false}
+              />
+            </>
+          )}
+          {currentView === "about" && (
+            <>
+              <group
+                name="treadmills005"
+                position={[9.7, 0.11, -12.5]}
+                rotation={[Math.PI / 2, 0, 0]}
+              >
+                <mesh
+                  name="gym_model_122005"
+                  geometry={nodes.gym_model_122005.geometry}
+                  material={materials["plastic(grey)"]}
+                />
+                <mesh
+                  name="gym_model_122005_1"
+                  geometry={nodes.gym_model_122005_1.geometry}
+                  material={materials["rubber-grey"]}
+                />
+                <mesh
+                  name="gym_model_122005_2"
+                  geometry={nodes.gym_model_122005_2.geometry}
+                  material={materials.rubber}
+                />
+                <mesh
+                  name="gym_model_122005_3"
+                  geometry={nodes.gym_model_122005_3.geometry}
+                  material={materials.screen}
+                />
+                <Logo 
+                  svgPath={about}
+                  position={[0, -.46, -1.146]}
+                  scale={.0011}
+                  tilt={-.38}
+                  rotation={{x: Math.PI / 2, y: 0, z: Math.PI}}
+                  fillColor="#F3FBFB"
+                  strokeColor="black"
+                />
+                {currentView === "about" && (
+                  <Hitbox
+                    position={[0, -0.5, -1.1]}
+                    size={[0.25, 0.15, 0.25]}
+                    onClick={() => onPopupTrigger("aboutMe")}
+                  />
+                )}
+              </group>
+              <group
+                name="treadmills002"
+                position={[8.1, 0.11, -12.5]}
+                rotation={[Math.PI / 2, 0, 0]}
+              >
+                <mesh
+                  name="gym_model_122006"
+                  geometry={nodes.gym_model_122006.geometry}
+                  material={materials["plastic(grey)"]}
+                />
+                <mesh
+                  name="gym_model_122006_1"
+                  geometry={nodes.gym_model_122006_1.geometry}
+                  material={materials["rubber-grey"]}
+                />
+                <mesh
+                  name="gym_model_122006_2"
+                  geometry={nodes.gym_model_122006_2.geometry}
+                  material={materials.rubber}
+                />
+                <mesh
+                  name="gym_model_122006_3"
+                  geometry={nodes.gym_model_122006_3.geometry}
+                  material={materials.screen}
+                />
+                <Logo 
+                  svgPath={work}
+                  position={[-.011, -.5, -1.153]}
+                  scale={.0067}
+                  tilt={-.38}
+                  rotation={{x: Math.PI / 2, y: 0, z: 0}}
+                  fillColor="#F3FBFB"
+                  strokeColor="blue"
+                />
+                {currentView === "about" && (
+                  <Hitbox
+                    position={[0, -0.5, -1.1]}
+                    size={[0.25, 0.15, 0.25]}
+                    onClick={() => onPopupTrigger("experience")}
+                  />
+                )}
+              </group>
+              <group
+                name="treadmills004"
+                position={[11.3, 0.11, -12.5]}
+                rotation={[Math.PI / 2, 0, 0]}
+              >
+                <mesh
+                  name="gym_model_122008"
+                  geometry={nodes.gym_model_122008.geometry}
+                  material={materials["plastic(grey)"]}
+                />
+                <mesh
+                  name="gym_model_122008_1"
+                  geometry={nodes.gym_model_122008_1.geometry}
+                  material={materials["rubber-grey"]}
+                />
+                <mesh
+                  name="gym_model_122008_2"
+                  geometry={nodes.gym_model_122008_2.geometry}
+                  material={materials.rubber}
+                />
+                <mesh
+                  name="gym_model_122008_3"
+                  geometry={nodes.gym_model_122008_3.geometry}
+                  material={materials.screen}
+                />
+                <Logo 
+                  svgPath={edu}
+                  position={[0, -.5, -1.145]}
+                  scale={.0061}
+                  tilt={-0.38}
+                  rotation={{x: Math.PI / 2, y: 0, z: 0}}
+                  fillColor="#F3FBFB"
+                  strokeColor="blue"
+                />
+                {currentView === "about" && (
+                  <Hitbox
+                    position={[0, -0.5, -1.1]}
+                    size={[0.25, 0.15, 0.25]}
+                    onClick={() => onPopupTrigger("education")}
+                  />
+                )}
+              </group>
+            </>
+          )}
+          {currentView === "skills" && (
+            <>
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 1.17, 1.1]}
+                rotation={[0, 0, 1.204]}
+                scale={0.002}
+                canInteract={true}
+                level="Large"
+                confidenceLevel = {90}
+                svgPath= {java}
+                svgPos={[0.08, -.25, 0.03]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 1.17, .8]}
+                rotation={[0, 0, 1.204]}
+                scale={0.002}
+                canInteract={true}
+                level="Large"
+                confidenceLevel = {85}
+                svgPath= {python}
+                svgPos={[0.05, -.25, 0.018]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 1.17, .5]}
+                rotation={[0, 0, 1.204]}
+                scale={0.002}
+                canInteract={true}
+                level="Large"
+                confidenceLevel = {80}
+                svgPath= {csharp}
+                svgPos={[.05, -.25, 0.02]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.8, 1.1]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0033}
+                canInteract={true}
+                level="Medium"
+                confidenceLevel = {60}
+                svgPath={javascript}
+                svgPos={[0.05, -.25, 0.008]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.8, .8]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0033}
+                canInteract={true}
+                level="Medium"
+                confidenceLevel = {50}
+                svgPath={html}
+                svgPos={[0.05, -.25, 0.015]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.8, .5]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0033}
+                canInteract={true}
+                level="Medium"
+                confidenceLevel = {50}
+                svgPath={css}
+                svgPos={[0.05, -.25, 0.02]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.48, 1.1]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0015}
+                canInteract={true}
+                level="Small"
+                confidenceLevel = {20}
+                svgPath={blender}
+                svgPos={[0.1, -.25, 0.02]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.48, .8]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0015}
+                canInteract={true}
+                level="Small"
+                confidenceLevel = {30}
+                svgPath={wordpress}
+                svgPos={[0.08, -.25, 0.02]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.48, .5]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0019}
+                canInteract={true}
+                level="Small"
+                confidenceLevel = {30}
+                svgPath={php}
+                svgPos={[0.14, -.25, 0]}
+              />
+              <SkillDumbbell
+                nodes={nodes}
+                materials={materials}
+                position={[-13.6, 0.48, .2]}
+                rotation={[0, 0, 1.204]}
+                scale={0.0015}
+                canInteract={true}
+                level="Small"
+                confidenceLevel = {15}
+                svgPath={xamarin}
+                svgPos={[0.085, -.25, 0.02]}
+              /> 
+            </>
+          )}
           {/* end of custom components and models */}
           <mesh
             name="Plane"
@@ -2700,146 +2713,155 @@ const Gym = ({ onCameraChange, currentView, onPopupTrigger, playAnimation }) => 
             rotation={[Math.PI / 2, 0, 0]}
             scale={[5, 5, 0.48]}
           />
-          <group
-            name="phone"
-            position={[2.92, 1.4, 9.3]}
-            rotation={[-Math.PI / 2, 0, 0.698]}
-            scale={[0.15, 0.1, 0.15]}>
-            <group name="55dfebbf940a459ba2ed4034ab2d80dcfbx" rotation={[Math.PI / 2, 0, 0]}>
-              <group name="RootNode">
-                <group name="HomeButton" position={[0, -1.322, -0.02]}>
-                  <mesh
-                    name="HomeButton_PhoneButtons_m_0"
-                    geometry={nodes.HomeButton_PhoneButtons_m_0.geometry}
-                    material={materials.PhoneButtons_m}
-                  />
+
+          
+          {/* Locker room models */}
+
+          {currentView === "projects" && (
+            <>
+              <group
+                name="phone"
+                position={[2.92, 1.4, 9.3]}
+                rotation={[-Math.PI / 2, 0, 0.698]}
+                scale={[0.15, 0.1, 0.15]}>
+                <group name="55dfebbf940a459ba2ed4034ab2d80dcfbx" rotation={[Math.PI / 2, 0, 0]}>
+                  <group name="RootNode">
+                    <group name="HomeButton" position={[0, -1.322, -0.02]}>
+                      <mesh
+                        name="HomeButton_PhoneButtons_m_0"
+                        geometry={nodes.HomeButton_PhoneButtons_m_0.geometry}
+                        material={materials.PhoneButtons_m}
+                      />
+                    </group>
+                    <group name="PhoneBody">
+                      <mesh
+                        name="PhoneBody_PhoneBody_m_0"
+                        geometry={nodes.PhoneBody_PhoneBody_m_0.geometry}
+                        material={materials.PhoneBody_m}
+                      />
+                      <mesh
+                        name="PhoneBody_PhoneScreen_M_0"
+                        geometry={nodes.PhoneBody_PhoneScreen_M_0.geometry}
+                        material={materials.PhoneScreen_M}
+                      />
+                    </group>
+                    <group name="PowerButton" position={[-0.723, 1.487, 0.008]}>
+                      <mesh
+                        name="PowerButton_PhoneButtons_m_0"
+                        geometry={nodes.PowerButton_PhoneButtons_m_0.geometry}
+                        material={materials.PhoneButtons_m}
+                      />
+                    </group>
+                    <group
+                      name="VolumeButton"
+                      position={[0.749, 1.145, 0.008]}
+                      rotation={[0, 0, -Math.PI / 2]}>
+                      <mesh
+                        name="VolumeButton_PhoneButtons_m_0"
+                        geometry={nodes.VolumeButton_PhoneButtons_m_0.geometry}
+                        material={materials.PhoneButtons_m}
+                      />
+                    </group>
+                  </group>
                 </group>
-                <group name="PhoneBody">
-                  <mesh
-                    name="PhoneBody_PhoneBody_m_0"
-                    geometry={nodes.PhoneBody_PhoneBody_m_0.geometry}
-                    material={materials.PhoneBody_m}
-                  />
-                  <mesh
-                    name="PhoneBody_PhoneScreen_M_0"
-                    geometry={nodes.PhoneBody_PhoneScreen_M_0.geometry}
-                    material={materials.PhoneScreen_M}
-                  />
-                </group>
-                <group name="PowerButton" position={[-0.723, 1.487, 0.008]}>
-                  <mesh
-                    name="PowerButton_PhoneButtons_m_0"
-                    geometry={nodes.PowerButton_PhoneButtons_m_0.geometry}
-                    material={materials.PhoneButtons_m}
-                  />
-                </group>
+              </group>
+              <mesh
+                name="locker_project_model_plate"
+                geometry={nodes.locker_project_model_plate.geometry}
+                material={materials.weights}
+                position={[4.89, 1.32, 8.99]}
+                rotation={[0.82, 0, 0]}
+                scale={0.8}
+              />
+              <group
+                name="SecurityCameraBase"
+                position={[6.16, 1.36, 9.13]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={0.03}>
+                <mesh
+                  name="Mesh"
+                  geometry={nodes.Mesh.geometry}
+                  material={materials.Team3_Sanchez_SecurityCameraBase}
+                />
+                <mesh
+                  name="Mesh_1"
+                  geometry={nodes.Mesh_1.geometry}
+                  material={materials.Team3_Sanchez_SecurityCameraBolt}
+                />
+              </group>
+              <group
+                name="SecurityCamera"
+                position={[6.14, 1.35, 9.13]}
+                rotation={[Math.PI / 2, 0, 0.925]}
+                scale={0.03}>
+                <mesh
+                  name="Mesh001"
+                  geometry={nodes.Mesh001.geometry}
+                  material={materials.Team3_Sanchez_SecurityCameraBase}
+                />
+                <mesh
+                  name="Mesh001_1"         
+                  geometry={nodes.Mesh001_1.geometry}
+                  material={materials.Team3_Sanchez_SecuruityCameraLens}
+                />
+                <mesh
+                  name="Mesh001_2"
+                  geometry={nodes.Mesh001_2.geometry}
+                  material={materials.Team3_Sanchez_SecurityCameraBolt}
+                />
+                <mesh
+                  name="Mesh001_3"
+                  geometry={nodes.Mesh001_3.geometry}
+                  material={materials.Team3_Sanchez_SecuirtyCameraOnButton}
+                />
+                <mesh
+                  name="Mesh001_4"        
+                  geometry={nodes.Mesh001_4.geometry}
+                  material={materials.lambert1}
+                />
+              </group>
+              <group
+                name="amazon_box"
+                position={[7.41, 1.17, 9.18]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={0.01}>
                 <group
-                  name="VolumeButton"
-                  position={[0.749, 1.145, 0.008]}
-                  rotation={[0, 0, -Math.PI / 2]}>
-                  <mesh
-                    name="VolumeButton_PhoneButtons_m_0"
-                    geometry={nodes.VolumeButton_PhoneButtons_m_0.geometry}
-                    material={materials.PhoneButtons_m}
-                  />
+                  name="a366978fdd564d359a25ec4aab2a25e0objcleanergles"
+                  position={[-22.332, -18.116, 0]}>
+                  <group name="Object_2">
+                    <mesh
+                      name="Object_3"
+                      geometry={nodes.Object_3.geometry}
+                      material={materials.crate_texture}
+                    />
+                    <mesh
+                      name="Object_3001"
+                      geometry={nodes.Object_3001.geometry}
+                      material={materials.crate_texture}
+                      position={[-15.299, 9.959, -0.301]}
+                      rotation={[0, 0, 1.902]}
+                    />
+                    <mesh
+                      name="Object_3002"
+                      geometry={nodes.Object_3002.geometry}
+                      material={materials.crate_texture}
+                      position={[-2.456, 22.833, 36.314]}
+                      rotation={[0, 0, -0.663]}
+                    />
+                  </group>
                 </group>
               </group>
-            </group>
-          </group>
-          <mesh
-            name="locker_project_model_plate"
-            geometry={nodes.locker_project_model_plate.geometry}
-            material={materials.weights}
-            position={[4.89, 1.32, 8.99]}
-            rotation={[0.82, 0, 0]}
-            scale={0.8}
-          />
-          <group
-            name="SecurityCameraBase"
-            position={[6.16, 1.36, 9.13]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={0.03}>
-            <mesh
-              name="Mesh"
-              geometry={nodes.Mesh.geometry}
-              material={materials.Team3_Sanchez_SecurityCameraBase}
-            />
-            <mesh
-              name="Mesh_1"
-              geometry={nodes.Mesh_1.geometry}
-              material={materials.Team3_Sanchez_SecurityCameraBolt}
-            />
-          </group>
-          <group
-            name="SecurityCamera"
-            position={[6.14, 1.35, 9.13]}
-            rotation={[Math.PI / 2, 0, 0.925]}
-            scale={0.03}>
-            <mesh
-              name="Mesh001"
-              geometry={nodes.Mesh001.geometry}
-              material={materials.Team3_Sanchez_SecurityCameraBase}
-            />
-            <mesh
-              name="Mesh001_1"         
-              geometry={nodes.Mesh001_1.geometry}
-              material={materials.Team3_Sanchez_SecuruityCameraLens}
-            />
-            <mesh
-              name="Mesh001_2"
-              geometry={nodes.Mesh001_2.geometry}
-              material={materials.Team3_Sanchez_SecurityCameraBolt}
-            />
-            <mesh
-              name="Mesh001_3"
-              geometry={nodes.Mesh001_3.geometry}
-              material={materials.Team3_Sanchez_SecuirtyCameraOnButton}
-            />
-            <mesh
-              name="Mesh001_4"        
-              geometry={nodes.Mesh001_4.geometry}
-              material={materials.lambert1}
-            />
-          </group>
-          <group
-            name="amazon_box"
-            position={[7.41, 1.17, 9.18]}
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={0.01}>
-            <group
-              name="a366978fdd564d359a25ec4aab2a25e0objcleanergles"
-              position={[-22.332, -18.116, 0]}>
-              <group name="Object_2">
-                <mesh
-                  name="Object_3"
-                  geometry={nodes.Object_3.geometry}
-                  material={materials.crate_texture}
-                />
-                <mesh
-                  name="Object_3001"
-                  geometry={nodes.Object_3001.geometry}
-                  material={materials.crate_texture}
-                  position={[-15.299, 9.959, -0.301]}
-                  rotation={[0, 0, 1.902]}
-                />
-                <mesh
-                  name="Object_3002"
-                  geometry={nodes.Object_3002.geometry}
-                  material={materials.crate_texture}
-                  position={[-2.456, 22.833, 36.314]}
-                  rotation={[0, 0, -0.663]}
-                />
-              </group>
-            </group>
-          </group>
-          <mesh
-            name="large_skill_dumbbell003"
-            geometry={nodes.large_skill_dumbbell003.geometry}
-            material={materials.rubber}
-            position={[4.168, 1.248, 9.302]}
-            rotation={[0, 0, 1.204]}
-            scale={0.5}
-          />
+              <mesh
+                name="large_skill_dumbbell003"
+                geometry={nodes.large_skill_dumbbell003.geometry}
+                material={materials.rubber}
+                position={[4.168, 1.248, 9.302]}
+                rotation={[0, 0, 1.204]}
+                scale={0.5}
+              />
+            </>
+          )}
+          
         </group>
       </a.group>
     </>
