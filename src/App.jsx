@@ -9,6 +9,8 @@ import CameraController from './assets/CameraController';
 import About from './pages/About';
 import QTEBar from './assets/MiniGame';
 import Projects from './pages/Projects';
+import { arrow } from '../public';
+import { Dumbbell, Play, RefreshCw, Home, XCircle } from 'lucide-react';
 
 
 const Scene = ({ currentView, onCameraChange, cameraConfigs, onPopupTrigger, playAnimation, sliderPosition, playGame }) => {
@@ -18,7 +20,7 @@ const Scene = ({ currentView, onCameraChange, cameraConfigs, onPopupTrigger, pla
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />
-      {/* <Environment preset="sunset" /> */}
+      <Environment preset="sunset" />
       <Gym 
         onCameraChange={onCameraChange} 
         currentView={currentView} 
@@ -32,8 +34,8 @@ const Scene = ({ currentView, onCameraChange, cameraConfigs, onPopupTrigger, pla
           rotation={[0, 0, 0]} 
           scale={[2, 0.5, 0.5]} 
           sliderPosition={sliderPosition}
-          successZoneStart={0.3}
-          successZoneEnd={0.7}
+          successZoneStart={0.35}
+          successZoneEnd={0.65}
         />
       )}
     </>
@@ -82,16 +84,26 @@ const App = () => {
     return () => cancelAnimationFrame(animationFrame);
   }, [playGame, speed, direction, isPaused]);
 
-  const handleCameraChange = (destination) => {
-    setCurrentView(destination);
-    if (destination === 'game') {
-      setTimeout(() => {
+  useEffect(() => {
+    let timeoutId;
+
+    if (currentView === 'game') {
+      timeoutId = setTimeout(() => {
         setShowStartPopup(true);
       }, 2000);
-    }
-    if (destination !== 'game'){
+    } else {
       setShowStartPopup(false);
     }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [currentView]);
+
+  const handleCameraChange = (destination) => {
+    setCurrentView(destination);
   };
 
   const handlePopupTrigger = (popupType) => {
@@ -101,9 +113,9 @@ const App = () => {
   const handleClick = () => {
     if (!canClick || isPaused) return;
 
-    if (sliderPosition >= 0.3 && sliderPosition <= 0.7) {
+    if (sliderPosition >= 0.35 && sliderPosition <= 0.65) {
       setScore((prev) => prev + 1);
-      setSpeed((prev) => prev * 1.02);
+      setSpeed((prev) => prev * 1.05);
       setPlayAnimation(true);
       setCanClick(false);
       setIsPaused(true);
@@ -160,47 +172,35 @@ const App = () => {
       </Canvas>
       {currentView === 'game' && playGame && !isPaused && (
         <button
-          style={{
-            position: 'absolute',
-            bottom: '70px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            padding: '10px 20px',
-            backgroundColor: canClick ? 'white' : 'gray',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: canClick ? 'pointer' : 'not-allowed',
-          }}
           onClick={handleClick}
           disabled={!canClick}
+          className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 
+                      bg-gradient-to-r ${canClick ? 'from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600' : 'from-gray-400 to-gray-500'} 
+                      text-white font-bold py-4 px-8 rounded-full shadow-lg 
+                      transition duration-300 ease-in-out transform hover:scale-105 
+                      flex items-center justify-center space-x-2
+                      ${canClick ? 'cursor-pointer' : 'cursor-not-allowed'}`}
         >
-          Click!
+          <Dumbbell className="w-6 h-6" />
+          <span className="text-xl">LIFT!</span>
         </button>
       )}
       {currentView !== 'reception' && currentView !== 'outside' && !showGameResults && !playGame&& (
         <button
-          style={{
-            position: 'absolute',
-            top: '20px',
-            left: '20px',
-            padding: '10px',
-            backgroundColor: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
+          className="absolute top-6 left-6 flex items-center text-white hover:text-gray-200 transition-colors duration-300 focus:outline-none"
           onClick={() => handleCameraChange('reception')}
         >
-          Back to Reception
+          <img src={arrow} alt="Back Arrow" className="w-6 h-6 mr-2 transform rotate-180" />
+          <span className="text-lg font-semibold">Back to Reception</span>
         </button>
       )}
       {activePopup && currentView !== 'projects' && (
         <div style={{
           position: 'absolute',
           top: '10%',
-          left: '10%',
-          width: '80%',
-          height: '80%',
+          left: '15%',
+          width: '70%',
+          height: '85%',
           backgroundColor: 'rgba(255, 255, 255, 0.9)',
           border: '2px solid #333',
           borderRadius: '10px',
@@ -213,10 +213,10 @@ const App = () => {
       {activePopup && currentView !== 'about' && (
         <div style={{
           position: 'absolute',
-          top: '10%',
-          left: '10%',
-          width: '80%',
-          height: '80%',
+          top: '4%',
+          left: '17%',
+          width: '70%',
+          height: '95%',
           backgroundColor: 'rgba(255, 255, 255, 0.9)',
           border: '2px solid #333',
           borderRadius: '10px',
@@ -227,71 +227,41 @@ const App = () => {
         </div>
       )}
       {showStartPopup && (
-        <div style={{ 
-          position: 'absolute', 
-          top: '50%', 
-          left: '50%', 
-          transform: 'translate(-50%, -50%)', 
-          backgroundColor: 'white', 
-          padding: 20, 
-          borderRadius: '10px', 
-          textAlign: 'center',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          zIndex: 1000
-        }}>
-          <h2 style={{ marginBottom: '15px', color: '#333' }}>Ready to Play?</h2>
-          <p style={{ marginBottom: '20px', color: '#666' }}>Click the button to start the game!</p>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-8 rounded-xl text-center shadow-lg z-50 max-w-md w-full">
+          <Dumbbell className="w-16 h-16 mx-auto mb-4 text-emerald-400" />
+          <h2 className="text-3xl font-bold mb-4 text-white">Ready to Lift?</h2>
+          <p className="mb-6 text-gray-300">Challenge yourself with the Bench Press Game!</p>
           <button 
             onClick={handleStartGame}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              transition: 'background-color 0.3s'
-            }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
+            className="flex items-center justify-center w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
           >
+            <Play className="w-5 h-5 mr-2" />
             Start Game
           </button>
         </div>
       )}
       {showGameResults && (
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: 20, borderRadius: '10px', textAlign: 'center' }}>
-          <h2>Game Over</h2>
-          <p>Score: {score}</p>
-          <p>High Score: {highScore}</p>
-          <button 
-            onClick={handleStartGame}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginRight: '10px'
-            }}
-          >
-            Play Again
-          </button>
-          <button 
-            onClick={() => {handleCameraChange('reception'); setShowGameResults(false);}}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#f44336',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer'
-            }}
-          >
-            Back to Reception
-          </button>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 p-8 rounded-xl text-center shadow-lg z-50 max-w-md w-full">
+          <XCircle className="w-16 h-16 mx-auto mb-4 text-red-400" />
+          <h2 className="text-3xl font-bold mb-4 text-white">Game Over</h2>
+          <p className="text-xl mb-2 text-gray-300">Score: <span className="text-emerald-400 font-bold">{score}</span></p>
+          <p className="text-xl mb-6 text-gray-300">High Score: <span className="text-emerald-400 font-bold">{highScore}</span></p>
+          <div className="flex space-x-4">
+            <button 
+              onClick={handleStartGame}
+              className="flex-1 flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
+            >
+              <RefreshCw className="w-5 h-5 mr-2" />
+              Play Again
+            </button>
+            <button 
+              onClick={() => {handleCameraChange('reception'); setShowGameResults(false);}}
+              className="flex-1 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
+            >
+              <Home className="w-5 h-5 mr-2" />
+              Reception
+            </button>
+          </div>
         </div>
       )}
     </section>
